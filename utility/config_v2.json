@@ -1,0 +1,30 @@
+{
+   "log_file_name": "pipeline-monitoring-test.log",
+   "log_formatter": "%(asctime)s %(lineno)d %(levelname)s %(funcName)s: %(message)s",
+   "log_level": "INFO",
+   "log_max_size_mb": "5",
+   "log_file_backup_counts": "5",
+   "hdfs_url": "http://devstage01:50070",
+   "hdfs_user": "livy",
+   "live_monitoring_delay_seconds": "60",
+   "command_kafka_latest_offset":"sh /usr/hdp/3.1.0.0-78/kafka/bin/kafka-run-class.sh kafka.tools.GetOffsetShell --broker-list 172.50.41.61:6667 --topic {0} --time -1",
+   "command_kafka_earliest_offset":"sh /usr/hdp/3.1.0.0-78/kafka/bin/kafka-run-class.sh kafka.tools.GetOffsetShell --broker-list 172.50.41.61:6667 --topic {0} --time -2",
+   "spark_api_url":"http://172.50.41.60:18081/api/v1",
+   "sax_api_url":"http://172.50.41.60:8090/StreamAnalytix/service/datafabric",
+   "sax_api_token":"1301a5c0-868c-4866-8cb5-b6c91f9b2b6b",
+   "sax_monitoring_pipelines":[
+      {
+         "name":"SIP_RTP_level_1_LongRun",
+         "restart_time_seconds":"600",
+         "offset_skip_per_partition":"1",
+         "max_restart_count_difference":"2"
+      },
+      {
+         "name":"SIP_RTP_Level_2_LongRun",
+         "restart_time_seconds":"600",
+         "offset_skip_per_partition":"1",
+         "max_restart_count_difference":"2"
+      }
+
+   ]
+}

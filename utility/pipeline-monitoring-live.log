@@ -1,0 +1,66 @@
+2021-04-09 19:09:19,240 34 INFO __init__: -------------------------Live Monitoring started---------------------------------
+2021-04-09 20:38:17,718 34 INFO __init__: -------------------------Live Monitoring started---------------------------------
+2021-04-09 20:38:36,341 172 INFO is_path_exists: / is exist and status is {'accessTime': 0, 'blockSize': 0, 'childrenNum': 39, 'fileId': 16385, 'group': 'hdfs', 'length': 0, 'modificationTime': 1616758784247, 'owner': 'hdfs', 'pathSuffix': '', 'permission': '755', 'replication': 0, 'snapshotEnabled': True, 'storagePolicy': 0, 'type': 'DIRECTORY'}
+2021-04-09 20:38:36,342 29 INFO get_connection: Hdfs connection created successfully.
+2021-04-09 20:38:42,963 172 INFO is_path_exists: / is exist and status is {'accessTime': 0, 'blockSize': 0, 'childrenNum': 39, 'fileId': 16385, 'group': 'hdfs', 'length': 0, 'modificationTime': 1616758784247, 'owner': 'hdfs', 'pathSuffix': '', 'permission': '755', 'replication': 0, 'snapshotEnabled': True, 'storagePolicy': 0, 'type': 'DIRECTORY'}
+2021-04-09 20:38:47,129 26 INFO get_api_response: Request Url -http://*******:8090/StreamAnalytix/service/datafabric/json/list/WireView_V109_54_QA
+2021-04-09 20:38:52,998 80 INFO is_json_element_exist: Json element is exist.
+2021-04-09 20:38:53,000 57 INFO get_current_checkpoint: Pipelines existing checkpoint path -/tmp/solrwireview_20210409_1358PM
+2021-04-09 20:38:53,001 61 INFO get_current_checkpoint: Pipelines updated checkpoint path -/tmp/solrwireview_20210409_1358PM
+2021-04-09 20:38:56,270 166 INFO process: Current checkpoint directory with offset - /tmp/solrwireview_20210409_1358PM/offsets/
+2021-04-09 20:39:05,582 172 INFO is_path_exists: /tmp/solrwireview_20210409_1358PM/offsets/ is exist and status is {'accessTime': 0, 'blockSize': 0, 'childrenNum': 101, 'fileId': 3453644, 'group': 'solr', 'length': 0, 'modificationTime': 1617980740614, 'owner': 'livy', 'pathSuffix': '', 'permission': '755', 'replication': 0, 'storagePolicy': 0, 'type': 'DIRECTORY'}
+2021-04-09 20:39:06,692 173 INFO process: Offset directory is exist within checkpoint directory
+2021-04-09 20:39:13,076 83 INFO get_latest_offset_dir: Latest dir name - 2830
+2021-04-09 20:41:54,414 34 INFO __init__: -------------------------Live Monitoring started---------------------------------
+2021-04-09 20:42:05,802 172 INFO is_path_exists: / is exist and status is {'accessTime': 0, 'blockSize': 0, 'childrenNum': 39, 'fileId': 16385, 'group': 'hdfs', 'length': 0, 'modificationTime': 1616758784247, 'owner': 'hdfs', 'pathSuffix': '', 'permission': '755', 'replication': 0, 'snapshotEnabled': True, 'storagePolicy': 0, 'type': 'DIRECTORY'}
+2021-04-09 20:42:05,803 29 INFO get_connection: Hdfs connection created successfully.
+2021-04-09 20:42:10,847 172 INFO is_path_exists: / is exist and status is {'accessTime': 0, 'blockSize': 0, 'childrenNum': 39, 'fileId': 16385, 'group': 'hdfs', 'length': 0, 'modificationTime': 1616758784247, 'owner': 'hdfs', 'pathSuffix': '', 'permission': '755', 'replication': 0, 'snapshotEnabled': True, 'storagePolicy': 0, 'type': 'DIRECTORY'}
+2021-04-09 20:42:10,849 26 INFO get_api_response: Request Url -http://*******:8090/StreamAnalytix/service/datafabric/json/list/WireView_V109_54_QA
+2021-04-09 20:42:16,011 80 INFO is_json_element_exist: Json element is exist.
+2021-04-09 20:42:16,012 57 INFO get_current_checkpoint: Pipelines existing checkpoint path -/tmp/solrwireview_20210409_1358PM
+2021-04-09 20:42:16,012 61 INFO get_current_checkpoint: Pipelines updated checkpoint path -/tmp/solrwireview_20210409_1358PM
+2021-04-09 20:42:16,013 166 INFO process: Current checkpoint directory with offset - /tmp/solrwireview_20210409_1358PM/offsets/
+2021-04-09 20:42:21,263 172 INFO is_path_exists: /tmp/solrwireview_20210409_1358PM/offsets/ is exist and status is {'accessTime': 0, 'blockSize': 0, 'childrenNum': 100, 'fileId': 3453644, 'group': 'solr', 'length': 0, 'modificationTime': 1617981007258, 'owner': 'livy', 'pathSuffix': '', 'permission': '755', 'replication': 0, 'storagePolicy': 0, 'type': 'DIRECTORY'}
+2021-04-09 20:42:25,800 173 INFO process: Offset directory is exist within checkpoint directory
+2021-04-09 20:42:32,350 83 INFO get_latest_offset_dir: Latest dir name - 2829
+2021-04-09 20:42:44,576 54 INFO process_data: Starting processing data....
+2021-04-09 20:42:45,478 57 INFO process_data: Input values latest_dir= 2829, current_checkpoint_directory_with_offset= /tmp/solrwireview_20210409_1358PM/offsets/, pipeline_name= WireView_V109_54_QA
+2021-04-09 20:42:50,911 67 INFO process_data: offset_dir_path = /tmp/solrwireview_20210409_1358PM/offsets/2829
+2021-04-09 20:43:19,154 38 INFO get_offset_data: offset content =v1
+{"batchWatermarkMs":0,"batchTimestampMs":1617979154663,"conf":{"spark.sql.shuffle.partitions":"200","spark.sql.streaming.stateStore.providerClass":"org.apache.spark.sql.execution.streaming.state.HDFSBackedStateStoreProvider"}}
+{"targetedwireviewtopicv4": {"0": 51592}}
+2021-04-09 20:43:19,154 41 INFO get_offset_data: offset data dict ={'targetedwireviewtopicv4': {'0': 51592}}
+2021-04-09 20:43:27,070 70 INFO process_data: offset_data_latest = {'targetedwireviewtopicv4': {'0': 51592}}
+2021-04-09 20:43:48,763 87 INFO process_data: Initialize the directory
+2021-04-09 20:45:58,521 172 INFO is_path_exists: / is exist and status is {'accessTime': 0, 'blockSize': 0, 'childrenNum': 39, 'fileId': 16385, 'group': 'hdfs', 'length': 0, 'modificationTime': 1616758784247, 'owner': 'hdfs', 'pathSuffix': '', 'permission': '755', 'replication': 0, 'snapshotEnabled': True, 'storagePolicy': 0, 'type': 'DIRECTORY'}
+2021-04-09 20:46:06,890 26 INFO get_api_response: Request Url -http://*******:8090/StreamAnalytix/service/datafabric/json/list/WireView_V109_54_QA
+2021-04-09 20:46:16,612 80 INFO is_json_element_exist: Json element is exist.
+2021-04-09 20:46:16,613 57 INFO get_current_checkpoint: Pipelines existing checkpoint path -/tmp/solrwireview_20210409_1358PM
+2021-04-09 20:46:16,614 61 INFO get_current_checkpoint: Pipelines updated checkpoint path -/tmp/solrwireview_20210409_1358PM
+2021-04-09 20:46:19,663 166 INFO process: Current checkpoint directory with offset - /tmp/solrwireview_20210409_1358PM/offsets/
+2021-04-09 20:46:25,719 172 INFO is_path_exists: /tmp/solrwireview_20210409_1358PM/offsets/ is exist and status is {'accessTime': 0, 'blockSize': 0, 'childrenNum': 101, 'fileId': 3453644, 'group': 'solr', 'length': 0, 'modificationTime': 1617981308252, 'owner': 'livy', 'pathSuffix': '', 'permission': '755', 'replication': 0, 'storagePolicy': 0, 'type': 'DIRECTORY'}
+2021-04-09 20:46:27,296 173 INFO process: Offset directory is exist within checkpoint directory
+2021-04-09 20:46:36,146 83 INFO get_latest_offset_dir: Latest dir name - 2830
+2021-04-09 20:46:49,500 54 INFO process_data: Starting processing data....
+2021-04-09 20:46:50,578 57 INFO process_data: Input values latest_dir= 2830, current_checkpoint_directory_with_offset= /tmp/solrwireview_20210409_1358PM/offsets/, pipeline_name= WireView_V109_54_QA
+2021-04-09 20:47:25,088 67 INFO process_data: offset_dir_path = /tmp/solrwireview_20210409_1358PM/offsets/2830
+2021-04-09 20:47:52,482 38 INFO get_offset_data: offset content =v1
+{"batchWatermarkMs":0,"batchTimestampMs":1617979157501,"conf":{"spark.sql.shuffle.partitions":"200","spark.sql.streaming.stateStore.providerClass":"org.apache.spark.sql.execution.streaming.state.HDFSBackedStateStoreProvider"}}
+{"targetedwireviewtopicv4":{"0":10}}
+
+2021-04-09 20:47:52,482 41 INFO get_offset_data: offset data dict ={'targetedwireviewtopicv4': {'0': 10}}
+2021-04-09 20:47:54,989 70 INFO process_data: offset_data_latest = {'targetedwireviewtopicv4': {'0': 10}}
+2021-04-09 20:48:52,868 100 INFO process_data: Previous max offset file name = 2829
+2021-04-09 20:49:20,123 50 INFO is_latest_offset_valid: previous offsets =dict_keys(['0'])
+2021-04-09 20:49:20,126 55 WARNING is_latest_offset_valid: latest offset has has issue.
+2021-04-09 20:49:20,127 58 INFO is_latest_offset_valid: offset_data_latest[targetedwireviewtopicv4][0] = 10
+2021-04-09 20:49:20,128 61 INFO is_latest_offset_valid: offset_data_previous[targetedwireviewtopicv4][0] = 51592
+2021-04-09 20:51:00,832 29 INFO kill_pipeline: Pipeline kill attempt- 1
+2021-04-09 20:51:04,354 70 INFO post_api_response: Request Url -http://*******:8090/StreamAnalytix/service/datafabric/subsystem/action?name=WireView_V109_54_QA&engine=spark&action=kill
+2021-04-09 20:51:13,663 82 INFO post_api_response: Post request -http://*******:8090/StreamAnalytix/service/datafabric/subsystem/action?name=WireView_V109_54_QA&engine=spark&action=kill  StatusCode-200 responseContent-b'{"code":"200","status":"SUCCESS","message":"Pipeline stopped successfully."}'
+2021-04-09 20:51:16,447 32 INFO kill_pipeline: Pipeline kill status - True
+2021-04-09 20:51:18,794 26 INFO get_api_response: Request Url -http://*******:8090/StreamAnalytix/service/datafabric/pipeline/detail?pipelineName=WireView_V109_54_QA
+2021-04-09 20:51:31,888 40 INFO kill_pipeline: Pipeline -WireView_V109_54_QA has been stopped.
+2021-04-09 20:51:39,049 123 INFO handle_failure: Pipeline has been stopped.
+2021-04-09 20:52:04,989 99 INFO delete_invalid_directories: offsets_delete_list - [2830]
+2021-04-09 20:52:10,184 104 INFO delete_invalid_directories: Directory deleted - /tmp/solrwireview_20210409_1358PM/offsets/2830
