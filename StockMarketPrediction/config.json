@@ -1,0 +1,19 @@
+{
+   "selenium":{
+      "chrome_driver_path":"D:/chromedriver.exe"
+   },
+   "stock":[
+      {
+         "stock_symbol":"TATAMOTORS",
+         "stock_first_trade_date":"01-01-1999"
+      }
+   ],
+   "nse_page":{
+      "url":"https://www1.nseindia.com/products/content/equities/equities/eq_security.htm",
+      "radio_time_period_id":"rdDateToDate",
+      "textbox_nse_page_symbol":"symbol",
+      "datebox_fromDate":"fromDate",
+      "datebox_toDate":"toDate",
+      "button_submit":"submitMe"
+   }
+}
