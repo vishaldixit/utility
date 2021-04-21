@@ -1,3 +1,5 @@
+import os
+
 
 class FileHelper:
     def __init__(self, logger):
@@ -23,3 +25,8 @@ class FileHelper:
         is_success = True
         self.logger.info("Local file write successfully.")
         return is_success
+
+    def get_directories(self, directory_path):
+        directories = [directory_path + name for name in os.listdir(directory_path) if os.path.isdir(directory_path + name)]
+        self.logger.info("Directories list - \n {0}".format(directories))
+        return directories

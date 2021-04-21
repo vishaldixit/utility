@@ -1,7 +1,6 @@
 import json
 import logging
 import sys
-from persistqueue import Queue
 from logging import handlers
 from StatsModule import OutlierHelper
 from LinuxModule import LinuxHelper
@@ -16,7 +15,6 @@ from TimeModule import TimeHelper
 from HdfsFramework import HDFSFrameworkHelper
 from KafkaModule import KafkaManager
 from StateModule import StateManager
-from FileQueueModule import FileQueueManager
 
 
 class PipelineManager:
@@ -56,7 +54,6 @@ class PipelineManager:
         self.stats_helper = OutlierHelper(self.logger)
         self.kafka_manager = KafkaManager(self.logger, self.config_manager)
         self.state_manager = StateManager(self.logger, self.sax_api_manager)
-        self.file_queue_manager = FileQueueManager(self.logger)
 
 
     def is_job_hanged(self, response_app_jobs, config_pipeline_index):
@@ -152,18 +149,16 @@ class PipelineManager:
                         self.logger.info(
                             "Monitoring ended for pipeline name -{0} and job id is- {1}".format(pipeline_name,
                                                                                                 pipeline_spark_id))
-                    self.logger.info("------------------------Monitoring Ended---------------------------------")
                     config_pipeline_index += 1
                 except (ValueError, Exception) as ex:
                     self.logger.error(
                         "Monitoring process has got error {0} So skipping process for pipeline - {1}".format(str(ex),
                                                                                                              pipeline_name))
-                    self.logger.info("-------------------Monitoring Ended with Exception----------------------------")
 
-
+                self.logger.info("------------------------Monitoring Ended---------------------------------")
         except (ValueError, Exception) as ex:
             self.logger.error("Monitoring process has got error {0}".format(str(ex)))
-            self.logger.info("------------------------Monitoring Ended with Exception---------------------------------")
+            self.logger.info("------------------------Monitoring Ended---------------------------------")
 
     # noinspection PyUnusedLocal
     def update_pipeline_config_json(self, checkpoint_dir_name, pipeline_name, config_pipeline_index):
@@ -377,7 +372,7 @@ class PipelineManager:
         self.logger.info("skip_offset_value = {0}".format(str(skip_offset_value)))
         result_offset_lines = self.get_updated_offset_lines(offset_file_current_lines,
                                                                   Constants.SKIP_OFFSET_FILE_LINES,
-                                                                  skip_offset_value, config_pipeline_index)
+                                                                  skip_offset_value)
         offset_file_updated_lines = result_offset_lines[0]
         is_offset_treatment_applied = result_offset_lines[1]
         self.logger.info("offset_file_updated_lines = {0}".format(offset_file_updated_lines))
@@ -505,7 +500,7 @@ class PipelineManager:
 
 
     # noinspection PyPep8
-    def get_updated_offset_lines(self, data_lines, skip_file_lines, skip_offset_value, config_pipeline_index=None):
+    def get_updated_offset_lines(self, data_lines, skip_file_lines, skip_offset_value):
         index = 0
         self.logger.info("Length of offset file lines {0}".format(len(data_lines)))
         # noinspection PyUnusedLocal
@@ -552,12 +547,6 @@ class PipelineManager:
 
                 self.logger.info("Going to apply Kafka treatment")
                 for partition in spark_current_offset_dict.keys():
-                    skip_data_topic = self.config_manager.config_pipelines_data[config_pipeline_index][
-                        Constants.CONFIG_SKIP_DATA_TOPIC]
-                    file_queue_key = "{0}__{1}__{2}".format(topic, partition, skip_data_topic)
-
-
-
                     self.logger.info("Partition value - {0}".format(partition))
                     self.logger.info("spark_current_offset_dict value - {0}".format(spark_current_offset_dict[partition]))
                     possible_updated_value = int(spark_current_offset_dict[partition]) + skip_offset_value
@@ -639,29 +628,16 @@ class PipelineManager:
 
                                 if (kafka_largest_offset_dict[key] <= min_value):
                                     final_offset[key] = kafka_largest_offset_dict[key]
-                                    # Data Loss handled
-                                    self.process_data_loss_offsets(file_queue_key, spark_current_offset_dict[key],
-                                                                   kafka_largest_offset_dict[key])
                                 else:
                                     final_offset[key] = min_value
-                                    # Data Loss handled
-                                    self.process_data_loss_offsets(file_queue_key, spark_current_offset_dict[key],
-                                                                   min_value)
-
 
                                 offset_treatment[key] = 2
                             elif spark_current_offset_dict[key] > max_value:
 
                                 if (kafka_largest_offset_dict[key] <= max_value):
                                     final_offset[key] = kafka_largest_offset_dict[key]
-                                    # Data Loss handled
-                                    self.process_data_loss_offsets(file_queue_key, spark_current_offset_dict[key],
-                                                                   kafka_largest_offset_dict[key])
                                 else:
                                     final_offset[key] = max_value
-                                    # Data Loss handled
-                                    self.process_data_loss_offsets(file_queue_key, spark_current_offset_dict[key],
-                                                                   max_value)
 
                                 offset_treatment[key] = 2
 
@@ -676,8 +652,6 @@ class PipelineManager:
                     if offset_treatment[key] == 0:
                         final_offset[key] = spark_current_offset_dict[key] + skip_offset_value
                         offset_treatment[key] = 3
-                        # Data Loss handled
-                        self.process_data_loss_offsets(file_queue_key, spark_current_offset_dict[key] + skip_offset_value)
 
                 if len(offset_treatment.keys()) > 0:
                     self.logger.info("Offset treatment values \n{0}".format(offset_treatment))
@@ -696,26 +670,6 @@ class PipelineManager:
             self.logger.info("Updated topic offset details {0}".format(data_lines[index]))
             index += 1
         return (data_lines, self.is_any_treatment_applied(offset_treatment))
-
-    def process_data_loss_offsets(self, key, start_value, end_value=None):
-        queue_directory_name = self.config_manager.get_config_value(Constants.CONFIG_DATA_LOSS_QUEUE_DIRECTORY_NAME)
-
-        self.file_queue_manager.put(key, queue_directory_name, start_value, end_value)
-        # queue_path = "./{0}/{1}".format(queue_directory_name, key)
-        # file_queue = Queue(queue_path)
-        # self.logger.info("Persisted file queue has been created with file_queue_key = {0}".format(queue_path))
-        # outlier_data_loss_value = None
-        # if end_value:
-        #     outlier_data_loss_value = "{0}-{1}".format(start_value, end_value)
-        # outlier_data_loss_value = str(start_value)
-        # file_queue.put(outlier_data_loss_value)
-        # self.logger.info("Persisted file queue has saved data loss value as {0}".format(outlier_data_loss_value))
-
-        # file_queue = Queue(file_queue_key)
-        # self.logger.info("Persisted file queue has been created with file_queue_key = {0}".format(file_queue_key))
-        # outlier_data_loss_value = "{0}-{1}".format(spark_current_offset_dict[key], min_value)
-        # file_queue.put(outlier_data_loss_value)
-        # self.logger.info("Persisted file queue has saved data loss value as {0}".format(outlier_data_loss_value))
 
     # noinspection PyMethodMayBeStatic
     def get_dictionary_key(self, offset_dict, searching_value):

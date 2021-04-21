@@ -1,7 +1,9 @@
 import logging
 import sys
 from logging import handlers
-from kafka import KafkaConsumer, TopicPartition
+from kafka import KafkaConsumer, TopicPartition, KafkaAdminClient, KafkaClient, KafkaProducer
+from kafka.cluster import ClusterMetadata
+
 from ConstantsModule import Constants
 from ConfigModule import ConfigManager
 
@@ -12,6 +14,10 @@ class KafkaManager:
         self.config_manager = config_manager
         self.bootstrap_servers = self.config_manager.get_config_value(Constants.CONFIG_KAFKA_BOOTSTRAP_SERVERS)
         self.consumer = KafkaConsumer(bootstrap_servers=self.bootstrap_servers)
+        self.admin_client = KafkaAdminClient(bootstrap_servers=self.bootstrap_servers)
+        self.client = KafkaClient(bootstrap_servers=self.bootstrap_servers)
+        self.producer = KafkaProducer(bootstrap_servers=self.bootstrap_servers)
+        self.cluster_metadata = ClusterMetadata(bootstrap_servers=self.bootstrap_servers)
 
     def get_partition_list(self, topic):
         partitions = [TopicPartition(topic, partition) for partition in self.consumer.partitions_for_topic(topic)]
@@ -33,6 +39,17 @@ class KafkaManager:
             offset_dictionary[str(partition[1])] = partition_details[partition]
         self.logger.info("Offset Dictionary - {0}".format(offset_dictionary))
         return offset_dictionary
+
+    def get_msg_by_offset_partition(self, topic_name, partition_value, offset_start_value, offset_end_value):
+        partition = TopicPartition(topic_name, partition_value)
+        self.consumer.assign([partition])
+        self.consumer.seek(partition, offset_start_value)
+        for msg in self.consumer:
+            if msg.offset > offset_end_value:
+                break
+            else:
+                print(msg)
+
 
 def main():
     logger = logging.getLogger(__name__)
@@ -58,6 +75,9 @@ def main():
     print(beginning_offsets)
     end_offsets = kafka_manager.get_beginning_offsets("targetedwireviewtopiclongrunv1")
     print(end_offsets)
+    kafka_manager.get_msg_by_offset_partition(topic_name="targetedwireviewtopicv4", partition_value=0,
+                                              offset_start_value=1603965,
+                                              offset_end_value=1603965)
     sys.exit()
 
 

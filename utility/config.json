@@ -5,19 +5,28 @@
    "log_max_size_mb": "5",
    "log_file_backup_counts": "5",
    "hdfs_url": "http://172.50.41.27:50070",
-   "hdfs_url_standby": "http://172.50.41.27:50070",
+   "hdfs_url_standby": "http://172.50.41.28:50070",
    "hdfs_user": "livy",
    "kafka_bootstrap_servers": "172.50.41.27:6667,172.50.41.29:6667,172.50.41.30:6667",
    "live_monitoring_delay_seconds": "60",
    "spark_api_url":"http://172.50.41.28:18081/api/v1",
    "sax_api_url":"http://172.50.41.27:8090/StreamAnalytix/service/datafabric",
    "sax_api_token":"0900abc6-a2c2-4778-851d-9f5954c958d9",
+   "data_loss_queue_directory_name": "data_loss_details",
    "sax_monitoring_pipelines":[
       {
          "name":"WireView_V109_54_QA",
          "restart_time_seconds":"600",
          "offset_skip_per_partition":"1",
-         "max_restart_count_difference":"2"
+         "max_restart_count_difference":"2",
+         "skip_data_topic": "wireview_skip_topic"
+      },
+      {
+         "name":"SIP_RTP_V109_55_level1_Khilan",
+         "restart_time_seconds":"600",
+         "offset_skip_per_partition":"1",
+         "max_restart_count_difference":"2",
+         "skip_data_topic": "sip_rtp_skip_topic"
       }
    ]
 }

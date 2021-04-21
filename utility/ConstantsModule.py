@@ -16,6 +16,8 @@ class Constants:
     CONFIG_SAX_API_URL = "sax_api_url"
     CONFIG_SAX_API_TOKEN = "sax_api_token"
     CONFIG_RESTART_TIME_SECONDS = "restart_time_seconds"
+    CONFIG_SKIP_DATA_TOPIC = "skip_data_topic"
+    CONFIG_DATA_LOSS_QUEUE_DIRECTORY_NAME = "data_loss_queue_directory_name"
     CONFIG_OFFSET_SKIP_PER_PARTITION = "offset_skip_per_partition"
     CONFIG_SAX_MONITORING_PIPELINES = "sax_monitoring_pipelines"
     CONFIG_MAX_RESTART_COUNT_DIFFERENCE = "max_restart_count_difference"
